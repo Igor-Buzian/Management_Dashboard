@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.CreateUserDto;
+import com.example.demo.dto.UpdateUserDto;
 import com.example.demo.dto.UserDto;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
@@ -8,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/api")
+@RequestMapping("/v1/api/users")
 public class UserController {
     private final UserService service;
 
@@ -16,17 +18,26 @@ public class UserController {
         this.service = service;
     }
 
-    @GetMapping("/users")
+    @GetMapping()
     public List<UserDto> getUsers() {
         return service.getAll();
     }
 
-    @PostMapping("/addUser")
-    public void addUser(@RequestBody User user) {
-        service.addUser(user);
+    @PostMapping()
+    public User addUser(@RequestBody CreateUserDto user) {
+       return service.addUser(user);
     }
 
-    @DeleteMapping("/user/{id}")
+    @PutMapping("/{id}")
+    public UserDto updateUser(
+            @PathVariable Long id,
+            @RequestBody UpdateUserDto dto
+    ) {
+        return service.updateUser(id, dto);
+    }
+
+
+    @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id) {
         service.deleteUser(id);
     }

@@ -1,0 +1,24 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <input
+    type="text"
+    placeholder="Name"
+    formControlName="name"
+  >
+
+  @for (err of getFieldErrors('name'); track $index){
+    <small>{{err}}</small>
+  }
+
+  <input
+    type="email"
+    placeholder="Email"
+    formControlName="email"
+  >
+
+  @for (err of getFieldErrors('email'); track $index){
+    <small>{{err}}</small>
+
+  }
+
+  <button type="submit">Add user</button>
+</form>

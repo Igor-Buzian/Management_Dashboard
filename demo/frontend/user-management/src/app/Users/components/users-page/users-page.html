@@ -1,0 +1,21 @@
+<h2>Users</h2>
+
+<app-user-form
+  (submitUser)="addUser($event)">
+</app-user-form>
+
+
+<app-users-list
+  [users]="users$ | async"
+  (edit)="openEditModal($event)"
+  (delete)="deleteUser($event)">
+</app-users-list>
+
+@if (selectedUser) {
+  <app-user-form-modal
+    #formModal
+    [user]="selectedUser"
+    (save)="updateUser($event)"
+    (cancel)="selectedUser= null">
+  </app-user-form-modal>
+}

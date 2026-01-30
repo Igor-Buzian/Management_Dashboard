@@ -1,0 +1,32 @@
+<div class="modal-backdrop">
+  <div class="modal">
+    <h2>Edit User</h2>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+      <label>Name</label>
+      <input type="text" formControlName="name" />
+
+      @for (err of getFieldErrors('name'); track $index) {
+        <small class="error">{{ err }}</small>
+      }
+
+      <label>Email</label>
+      <input type="email" formControlName="email" />
+
+      @for (err of getFieldErrors('email'); track $index) {
+        <small class="error">{{ err }}</small>
+      }
+
+      <div class="modal-actions">
+        <button type="submit" [disabled]="form.invalid">
+          Save Changes
+        </button>
+
+        <button type="button" (click)="cancel.emit()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

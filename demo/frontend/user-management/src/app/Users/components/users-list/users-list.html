@@ -1,0 +1,13 @@
+@if (users?.length) {
+  <ul>
+    @for (user of users; track user.id) {
+      <li>
+        {{ user.name }} - {{ user.email }}
+        <button type="button" (click)="onEdit(user)">Edit</button>
+        <button type="button" (click)="onDelete(user.id)">Delete</button>
+      </li>
+    }
+  </ul>
+} @else {
+  <p>No users found!</p>
+}
