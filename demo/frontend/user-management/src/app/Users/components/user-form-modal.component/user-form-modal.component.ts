@@ -5,6 +5,7 @@ import {VALIDATION_MESSAGES} from '../../../shared/validation/users.validation';
 import {getValidationMessages} from '../../../shared/validation/validation.helper';
 import {CommonModule} from '@angular/common';
 import {handleFormServerError} from '../../../shared/error/handle-server-error';
+import {createUserForm} from '../../../shared/form/user.form';
 
 @Component({
   selector: 'app-user-form-modal',
@@ -18,25 +19,14 @@ export class UserFormModalComponent implements OnInit {
   @Output() save = new EventEmitter<User>();
   @Output() cancel = new EventEmitter<void>();
 
-  form = new FormGroup(
-    {
-      name: new FormControl('', {
-        nonNullable: true,
-        validators: [Validators.required, Validators.minLength(3), Validators.maxLength(50), Validators.pattern(/^[a-zA-Zа-яА-Я0-9\s-]+$/)]
-      }),
-      email: new FormControl('', {
-        nonNullable: true,
-        validators: [Validators.required, Validators.email, Validators.minLength(3), Validators.maxLength(50)]
-      }),
-    }
-  );
+  form = createUserForm();
 
   ngOnInit() {
     if (!this.user) {
       throw new Error('UserFormModal requires user input');
     }
 
-    this.form.setValue({
+    this.form.patchValue({
       name: this.user.name,
       email: this.user.email
     });

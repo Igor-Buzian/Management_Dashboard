@@ -46,15 +46,6 @@ export class UsersPage {
     this.selectedUser = user;
   }
 
-  /*  updateUser1(user: User) {
-      this.userService.updateUser(user.id, user).subscribe(
-        () => {
-          this.selectedUser = null;
-          this.refresh$.next();
-        }
-      )
-    }*/
-
   updateUser(user: User) {
     this.userService.updateUser(user.id, user).subscribe({
         next: () => {

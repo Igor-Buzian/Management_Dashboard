@@ -1,8 +1,9 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {CreateUserDto} from '../../interfaces/dto/create-user.dto';
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 import {VALIDATION_MESSAGES} from '../../../shared/validation/users.validation';
 import {getValidationMessages} from '../../../shared/validation/validation.helper';
+import {createUserForm} from '../../../shared/form/user.form';
 
 @Component({
   selector: 'app-user-form',
@@ -14,33 +15,7 @@ import {getValidationMessages} from '../../../shared/validation/validation.helpe
 })
 export class UserForm {
   @Output() submitUser = new EventEmitter<CreateUserDto>();
-
-  form = new FormGroup(
-    {
-      name: new FormControl('',
-        {
-          nonNullable: true,
-          validators: [
-            Validators.required,
-            Validators.minLength(3),
-            Validators.maxLength(50),
-            Validators.pattern(/^[a-zA-Zа-яА-Я0-9\s-]+$/)
-          ]
-        }
-      ),
-      email: new FormControl('',
-        {
-          nonNullable: true,
-          validators:
-            [
-              Validators.required,
-              Validators.email,
-              Validators.minLength(3),
-              Validators.maxLength(50)
-            ]
-        })
-    }
-  )
+  form = createUserForm();
 
   submit() {
     if (this.form.invalid) return;

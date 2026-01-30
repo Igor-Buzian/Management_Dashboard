@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable, using} from 'rxjs';
+import {Observable} from 'rxjs';
 import {User} from '../../interfaces/models/User';
 import {CreateUserDto} from '../../interfaces/dto/create-user.dto';
 import {UpdateUserDto} from '../../interfaces/dto/update-user.dto';
