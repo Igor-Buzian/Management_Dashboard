@@ -4,21 +4,21 @@ import com.example.demo.dto.CreateUserDto;
 import com.example.demo.dto.UpdateUserDto;
 import com.example.demo.dto.UserDto;
 import com.example.demo.entity.User;
+import com.example.demo.exceptions.exception.NotFoundException;
 import com.example.demo.repository.UserRepository;
-import org.springframework.http.HttpStatus;
+import com.example.demo.service.validation.EmailUniquenessChecker;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository repository;
+    private final EmailUniquenessChecker emailUniquenessChecker;
 
-    public UserService(UserRepository repository) {
-        this.repository = repository;
-    }
 
     public List<UserDto> getAll() {
         return repository.findAll()
@@ -36,7 +36,7 @@ public class UserService {
     }
 
     public User addUser(CreateUserDto dto) {
-        emailExists(dto.getEmail());
+        emailUniquenessChecker.check(dto.getEmail());
 
         User user = new User();
         user.setName(dto.getName());
@@ -47,50 +47,25 @@ public class UserService {
 
     public void deleteUser(Long id) {
         if (!repository.existsById(id)) {
-            throw new RuntimeException("User not found");
+            throw NotFoundException.entity("user", "id", id);
         }
         repository.deleteById(id);
     }
 
     public UserDto updateUser(Long id, UpdateUserDto dto) {
         User user = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> NotFoundException.entity("user", "id", id));
 
         if (dto.getName() != null) {
             user.setName(dto.getName());
         }
 
         if (dto.getEmail() != null) {
-            emailExists(dto.getEmail(), id);
+            emailUniquenessChecker.check(dto.getEmail(), id);
             user.setEmail(dto.getEmail());
         }
 
         User saved = repository.save(user);
         return toDto(saved);
     }
-
-    void emailExists(String email) {
-        if (repository.existsByEmail(email)) {
-            throw new ResponseStatusException(
-                    HttpStatus.BAD_REQUEST,
-                    "Email already in use"
-            );
-
-        }
-    }
-
-    void emailExists(String email, Long currentUserId) {
-        boolean emailTaken =
-                repository.existsByEmailAndIdNot(email, currentUserId);
-
-        if (emailTaken) {
-            throw new ResponseStatusException(
-                    HttpStatus.CONFLICT,
-                    "Email already in use"
-            );
-
-        }
-    }
-
-
 }

@@ -25,14 +25,20 @@ export class UsersPage {
   private refresh$ = new BehaviorSubject<void>(undefined);
   users$ = this.refresh$.pipe(switchMap(() => this.userService.getUsers()));
   @ViewChild('formModal') formModal?: UserFormModalComponent;
+  @ViewChild('form') form?: UserForm;
   selectedUser: User | null = null;
 
   constructor(private userService: UserService) {
   }
 
   addUser(dto: CreateUserDto) {
-    this.userService.addUser(dto).subscribe(() => {
-      this.refresh$.next();
+    this.userService.addUser(dto).subscribe({
+      next: () =>{
+          this.refresh$.next();
+      },
+      error: (err) =>{
+        this.form?.handleServerError(err.error);
+      }
     });
   }
 
@@ -53,9 +59,7 @@ export class UsersPage {
           this.refresh$.next();
         },
         error: (error) => {
-          if (error.status === 409) {
-            this.formModal?.handleServerError(error.status);
-          }
+            this.formModal?.handleServerError(error.error);
         }
       }
     )

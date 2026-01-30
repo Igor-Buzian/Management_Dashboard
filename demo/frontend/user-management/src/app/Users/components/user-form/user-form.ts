@@ -4,6 +4,8 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {VALIDATION_MESSAGES} from '../../../shared/validation/users.validation';
 import {getValidationMessages} from '../../../shared/validation/validation.helper';
 import {createUserForm} from '../../../shared/form/user.form';
+import {handleFormServerError} from '../../../shared/error/handle-server-error';
+import {BaseFormComponent} from '../base-form/base-form.component';
 
 @Component({
   selector: 'app-user-form',
@@ -13,7 +15,7 @@ import {createUserForm} from '../../../shared/form/user.form';
   templateUrl: './user-form.html',
   styleUrl: './user-form.scss',
 })
-export class UserForm {
+export class UserForm extends BaseFormComponent{
   @Output() submitUser = new EventEmitter<CreateUserDto>();
   form = createUserForm();
 
@@ -22,9 +24,5 @@ export class UserForm {
 
     this.submitUser.emit(this.form.getRawValue());
     this.form.reset();
-  }
-
-  getFieldErrors(field: keyof typeof VALIDATION_MESSAGES): string[] {
-    return getValidationMessages(this.form.get(field), field);
   }
 }
