@@ -10,6 +10,7 @@ import com.example.demo.service.validation.EmailUniquenessChecker;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -29,18 +30,36 @@ public class UserService {
 
     private UserDto toDto(User user) {
         UserDto dto = new UserDto();
+
         dto.setId(user.getId());
         dto.setName(user.getName());
         dto.setEmail(user.getEmail());
+
+        dto.setCity(user.getCity());
+        dto.setProfession(user.getProfession());
+        dto.setAge(user.getAge());
+        dto.setExperienceYears(user.getExperienceYears());
+
+        dto.setStatus(user.getStatus());
+        dto.setAvatarUrl(user.getAvatarUrl());
+        dto.setCreatedAt(user.getCreatedAt());
+
         return dto;
     }
 
     public User addUser(CreateUserDto dto) {
         emailUniquenessChecker.check(dto.getEmail());
-
+        LocalDateTime createdAt = LocalDateTime.now();
         User user = new User();
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
+        user.setCity(dto.getCity());
+        user.setProfession(dto.getProfession());
+        user.setAge(dto.getAge());
+        user.setExperienceYears(dto.getExperienceYears());
+        user.setStatus("ACTIVE");
+        user.setAvatarUrl(dto.getAvatarUrl());
+        user.setCreatedAt(createdAt);
 
         return repository.save(user);
     }
@@ -56,16 +75,19 @@ public class UserService {
         User user = repository.findById(id)
                 .orElseThrow(() -> NotFoundException.entity("user", "id", id));
 
-        if (dto.getName() != null) {
-            user.setName(dto.getName());
-        }
+        if (dto.getName() != null) user.setName(dto.getName());
 
         if (dto.getEmail() != null) {
-            emailUniquenessChecker.check(dto.getEmail(), id);
+            emailUniquenessChecker.check(dto.getEmail(), user.getId());
             user.setEmail(dto.getEmail());
         }
 
-        User saved = repository.save(user);
-        return toDto(saved);
+        if (dto.getCity() != null) user.setCity(dto.getCity());
+        if (dto.getProfession() != null) user.setProfession(dto.getProfession());
+        if (dto.getAge() != null) user.setAge(dto.getAge());
+        if (dto.getExperienceYears() != null) user.setExperienceYears(dto.getExperienceYears());
+        if (dto.getAvatarUrl() != null) user.setAvatarUrl(dto.getAvatarUrl());
+        if (dto.getStatus() != null) user.setStatus(dto.getStatus());
+        return toDto(repository.save(user));
     }
 }

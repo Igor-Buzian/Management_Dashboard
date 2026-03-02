@@ -4,7 +4,6 @@
     placeholder="Name"
     formControlName="name"
   >
-
   @for (err of getFieldErrors('name'); track $index){
     <small>{{err}}</small>
   }
@@ -14,10 +13,68 @@
     placeholder="Email"
     formControlName="email"
   >
-
   @for (err of getFieldErrors('email'); track $index){
     <small>{{err}}</small>
+  }
 
+  <input
+    type="text"
+    placeholder="City"
+    formControlName="city"
+  >
+  @for (err of getFieldErrors('city'); track $index){
+    <small>{{err}}</small>
+  }
+
+  <input
+    type="text"
+    placeholder="Profession"
+    formControlName="profession"
+  >
+  @for (err of getFieldErrors('profession'); track $index){
+    <small>{{err}}</small>
+  }
+
+  <input
+    type="number"
+    placeholder="Age"
+    formControlName="age"
+  >
+  @for (err of getFieldErrors('age'); track $index){
+    <small>{{err}}</small>
+  }
+
+  <input
+    type="number"
+    placeholder="Experience Years"
+    formControlName="experienceYears"
+  >
+  @for (err of getFieldErrors('experienceYears'); track $index){
+    <small>{{err}}</small>
+  }
+
+  <select formControlName="status">
+    <option value="">Select Status</option>
+    <option value="ACTIVE">Active</option>
+    <option value="INACTIVE">Inactive</option>
+    <option value="SUSPENDED">Suspended</option>
+  </select>
+  @for(err of getFieldErrors('status'); track $index){
+    <small class="error">{{err}}</small>
+  }
+
+  <label>Avatar Url</label>
+  <input
+    type="file"
+    accept="image/*"
+    (change)="onFileSelected($event)"
+  >
+ @if(previewUrl){
+   <img [src]="previewUrl" alt="Avatar preview" class="avatar-preview" width="500">
+ }
+
+  @for (err of getFieldErrors('avatarUrl'); track $index) {
+    <small class="error">{{ err }}</small>
   }
 
   <button type="submit">Add user</button>

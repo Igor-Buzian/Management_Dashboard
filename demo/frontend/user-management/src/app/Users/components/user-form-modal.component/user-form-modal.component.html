@@ -1,32 +1,66 @@
-<div class="modal-backdrop">
-  <div class="modal">
-    <h2>Edit User</h2>
+<form [formGroup]="form" (ngSubmit)="submit()">
 
-    <form [formGroup]="form" (ngSubmit)="submit()">
+  <label>Name</label>
+  <input type="text" formControlName="name" />
+  @for (err of getFieldErrors('name'); track $index) {
+    <small class="error">{{ err }}</small>
+  }
 
-      <label>Name</label>
-      <input type="text" formControlName="name" />
+  <label>Email</label>
+  <input type="email" formControlName="email" />
+  @for (err of getFieldErrors('email'); track $index) {
+    <small class="error">{{ err }}</small>
+  }
 
-      @for (err of getFieldErrors('name'); track $index) {
-        <small class="error">{{ err }}</small>
-      }
+  <label>City</label>
+  <input type="text" formControlName="city" />
+  @for (err of getFieldErrors('city'); track $index) {
+    <small class="error">{{ err }}</small>
+  }
 
-      <label>Email</label>
-      <input type="email" formControlName="email" />
+  <label>Profession</label>
+  <input type="text" formControlName="profession" />
+  @for (err of getFieldErrors('profession'); track $index) {
+    <small class="error">{{ err }}</small>
+  }
 
-      @for (err of getFieldErrors('email'); track $index) {
-        <small class="error">{{ err }}</small>
-      }
+  <label>Age</label>
+  <input type="number" formControlName="age" />
+  @for (err of getFieldErrors('age'); track $index) {
+    <small class="error">{{ err }}</small>
+  }
 
-      <div class="modal-actions">
-        <button type="submit">
-          Save Changes
-        </button>
+  <label>Experience Years</label>
+  <input type="number" formControlName="experienceYears" />
+  @for (err of getFieldErrors('experienceYears'); track $index) {
+    <small class="error">{{ err }}</small>
+  }
 
-        <button type="button" (click)="cancel.emit()">
-          Cancel
-        </button>
-      </div>
-    </form>
+  <label>Status</label>
+  <select formControlName="status">
+    <option value="">Select Status</option>
+    <option value="ACTIVE">Active</option>
+    <option value="INACTIVE">Inactive</option>
+    <option value="SUSPENDED">Suspended</option>
+  </select>
+  @for (err of getFieldErrors('status'); track $index) {
+    <small class="error">{{ err }}</small>
+  }
+
+  <label>Avatar URL</label>
+  <input type="file" formControlName="avatarUrl" />
+  @for (err of getFieldErrors('avatarUrl'); track $index) {
+    <small class="error">{{ err }}</small>
+  }
+
+ @if(form.get('avatarUrl')!= null) {
+   <img [src]="form.get('avatarUrl')?.value" width="500" />
+ }
+
+
+  <div class="modal-actions">
+    <button type="submit">Save Changes</button>
+    <button type="button" (click)="cancel.emit()">Cancel</button>
   </div>
-</div>
+
+</form>
