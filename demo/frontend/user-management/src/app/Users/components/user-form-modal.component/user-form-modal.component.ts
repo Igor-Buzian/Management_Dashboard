@@ -13,7 +13,7 @@ import {readImageFile} from '../../../shared/form/user.file.selected';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './user-form-modal.component.html',
-  styleUrl: './user-form-modal.component.scss',
+  styleUrls: ['./user-form-modal.component.scss'],
 })
 export class UserFormModalComponent extends BaseFormComponent implements OnInit {
   private _user!: User;

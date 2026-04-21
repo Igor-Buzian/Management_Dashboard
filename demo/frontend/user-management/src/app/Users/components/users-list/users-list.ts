@@ -10,7 +10,7 @@ import {CommonModule} from '@angular/common';
     CommonModule
   ],
   templateUrl: './users-list.html',
-  styleUrl: './users-list.scss',
+  styleUrls: ['./users-list.scss'],
 })
 export class UsersList {
   @Input() users: User[] | null = [];

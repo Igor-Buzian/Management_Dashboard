@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, EventEmitter, Output} from '@angular/core';
+import { Component, EventEmitter, Output} from '@angular/core';
 import {CreateUserDto} from '../../interfaces/dto/create-user.dto';
 import {ReactiveFormsModule} from '@angular/forms';
 import {createUserForm} from '../../../shared/form/user.form';
@@ -13,7 +13,7 @@ import {readImageFile} from '../../../shared/form/user.file.selected';
     CommonModule
   ],
   templateUrl: './user-form.html',
-  styleUrl: './user-form.scss',
+  styleUrls: ['./user-form.scss'],
   standalone: true
 })
 export class UserForm extends BaseFormComponent {

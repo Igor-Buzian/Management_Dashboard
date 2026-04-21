@@ -1,0 +1,31 @@
+@use './variables' as v;
+
+.button {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: v.$spacing-sm v.$spacing-md;
+  border-radius: v.$radius-sm;
+  border: none;
+  cursor: pointer;
+  font-size: v.$font-md;
+  line-height: 1.2;
+
+
+  &--primary {
+    background: v.$color-primary;
+    color: white;
+  }
+
+  &--danger {
+    background: v.$color-danger;
+    color: white;
+  }
+
+  &--ghost {
+    background: transparent;
+    border: 1px solid v.$color-border;
+  }
+}

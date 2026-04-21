@@ -1,0 +1,20 @@
+@use './variables' as v;
+
+@mixin input-base {
+  width: 100%;
+  padding: v.$spacing-sm v.$spacing-md;
+  border: 1px solid v.$color-border;
+  border-radius: v.$radius-sm;
+  font-size: v.$font-md;
+  outline: none;
+
+  &:focus {
+    border-color: v.$color-primary;
+  }
+}
+
+@mixin error-text {
+  color: v.$color-danger;
+  font-size: v.$font-sm;
+  margin-top: v.$spacing-xs;
+}

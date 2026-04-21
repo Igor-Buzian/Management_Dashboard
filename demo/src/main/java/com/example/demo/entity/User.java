@@ -36,7 +36,7 @@ public class User {
     @Column(length = 20)
     private String status;
 
-    @Column(name = "avatar_url", length = 500)
+    @Column(name = "avatar_url", columnDefinition = "TEXT")
     private String avatarUrl;
 
 

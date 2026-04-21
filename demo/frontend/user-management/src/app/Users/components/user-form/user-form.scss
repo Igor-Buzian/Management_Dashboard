@@ -1,0 +1,71 @@
+@use '../../styles/variables' as v;
+@use '../../styles/form';
+@use '../../styles/buttons';
+
+:host {
+  display: block;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: v.$spacing-lg;
+  background: white;
+  border-radius: v.$radius-md;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* form tweaks */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: v.$spacing-md;
+}
+
+.form__field {
+  display: flex;
+  flex-direction: column;
+  gap: v.$spacing-xs;
+}
+
+.form__label {
+  font-size: v.$font-sm;
+  font-weight: 500;
+  color: v.$color-text;
+}
+
+.form__error {
+  font-size: v.$font-sm;
+  color: v.$color-danger;
+}
+
+.form__submit {
+  margin-top: v.$spacing-lg;
+  align-self: flex-end;
+  max-width: 100%;
+}
+
+/* submit button */
+.form__submit {
+  margin-top: v.$spacing-lg;
+  align-self: flex-end;
+  max-width: 100%;
+}
+
+/* avatar preview */
+.avatar-preview {
+  margin-top: v.$spacing-sm;
+  max-width: 100%;
+  border-radius: v.$radius-md;
+  border: 1px solid v.$color-border;
+}
+
+/* file input */
+input[type='file'] {
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
+}
+
+/* better focus feel */
+input:focus,
+select:focus {
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
+}

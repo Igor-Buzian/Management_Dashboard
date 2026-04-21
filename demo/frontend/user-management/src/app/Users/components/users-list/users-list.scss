@@ -1,0 +1,68 @@
+@use '../../styles/variables' as v;
+@use '../../styles/buttons';
+
+/* list */
+.user-list {
+  list-style: none;
+  margin: v.$spacing-lg 0 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: v.$spacing-sm;
+}
+
+/* item */
+.user-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: v.$spacing-md;
+
+  padding: v.$spacing-sm v.$spacing-md;
+  background: white;
+
+  border: 1px solid v.$color-border;
+  border-radius: v.$radius-sm;
+}
+
+/* user info */
+.user-item__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.user-item__name {
+  font-weight: 500;
+  color: v.$color-text;
+}
+
+.user-item__email {
+  font-size: v.$font-sm;
+  color: #6b7280; // muted text
+}
+
+/* actions */
+.user-item__actions {
+  display: flex;
+  gap: v.$spacing-xs;
+  flex-shrink: 0;
+}
+
+/* empty state */
+.empty-state {
+  margin-top: v.$spacing-lg;
+  color: #6b7280;
+  text-align: center;
+}
+
+.user-item__avatar {
+  width: 56px;
+  height: 56px;
+
+  border-radius: 12px;
+  object-fit: cover;
+
+  flex-shrink: 0;
+}

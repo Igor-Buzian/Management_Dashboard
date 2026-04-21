@@ -1,10 +1,8 @@
 <h2>Users</h2>
 
 <app-user-form
-  #form
   (submitUser)="addUser($event)">
 </app-user-form>
-
 
 <app-users-list
   [users]="users$ | async"
@@ -14,9 +12,8 @@
 
 @if (selectedUser) {
   <app-user-form-modal
-    #formModal
     [user]="selectedUser"
     (save)="updateUser($event)"
-    (cancel)="selectedUser= null">
+    (cancel)="selectedUser = null">
   </app-user-form-modal>
 }

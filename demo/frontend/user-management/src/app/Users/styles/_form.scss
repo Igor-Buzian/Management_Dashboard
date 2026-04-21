@@ -1,0 +1,28 @@
+@use './variables' as v;
+@use './mixins';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: v.$spacing-md;
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: v.$spacing-xs;
+  }
+
+  label {
+    font-size: v.$font-sm;
+    font-weight: 500;
+  }
+
+  input,
+  select {
+    @include mixins.input-base;
+  }
+
+  small {
+    @include mixins.error-text;
+  }
+}

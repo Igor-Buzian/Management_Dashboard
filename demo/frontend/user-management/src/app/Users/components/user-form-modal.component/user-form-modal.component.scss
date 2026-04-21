@@ -1,0 +1,47 @@
+@use '../../styles/variables' as v;
+@use '../../styles/form';
+@use '../../styles/buttons';
+
+:host {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* modal container */
+.modal {
+  background: white;
+  width: 100%;
+  max-width: 520px;
+  padding: v.$spacing-lg;
+
+  border-radius: v.$radius-md;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* form spacing */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: v.$spacing-md;
+}
+
+/* actions */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: v.$spacing-sm;
+  margin-top: v.$spacing-lg;
+}
+
+/* avatar preview */
+.avatar-preview {
+  margin-top: v.$spacing-sm;
+  max-width: 100%;
+  border-radius: v.$radius-sm;
+  border: 1px solid v.$color-border;
+}

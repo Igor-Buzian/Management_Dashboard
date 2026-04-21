@@ -19,7 +19,7 @@ import {UserFormModalComponent} from '../user-form-modal.component/user-form-mod
     CommonModule
   ],
   templateUrl: './users-page.html',
-  styleUrl: './users-page.scss',
+  styleUrls: ['./users-page.scss'],
 })
 export class UsersPage {
   private refresh$ = new BehaviorSubject<void>(undefined);

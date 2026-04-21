@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS users (
 
     status VARCHAR(20) DEFAULT 'ACTIVE',
 
-    avatar_url VARCHAR(500),
+    avatar_url TEXT,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );

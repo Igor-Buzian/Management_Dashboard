@@ -1,13 +1,38 @@
 @if (users?.length) {
-  <ul>
+  <ul class="user-list">
     @for (user of users; track user.id) {
-      <li>
-        {{ user.name }} - {{ user.email }}
-        <button type="button" (click)="onEdit(user)">Edit</button>
-        <button type="button" (click)="onDelete(user.id)">Delete</button>
+      <li class="user-item">
+        <img
+          class="user-item__avatar"
+          [src]="user.avatarUrl"
+          alt="{{ user.name }}"
+        />
+
+        <div class="user-item__info">
+          <span class="user-item__name">{{ user.name }}</span>
+          <span class="user-item__email">{{ user.email }}</span>
+        </div>
+
+        <div class="user-item__actions">
+          <button
+            type="button"
+            class="button button--ghost"
+            (click)="onEdit(user)"
+          >
+            Edit
+          </button>
+
+          <button
+            type="button"
+            class="button button--danger"
+            (click)="onDelete(user.id)"
+          >
+            Delete
+          </button>
+        </div>
       </li>
     }
   </ul>
 } @else {
-  <p>No users found!</p>
+  <p class="empty-state">No users found!</p>
 }

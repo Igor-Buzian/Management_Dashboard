@@ -1,81 +1,152 @@
-<form [formGroup]="form" (ngSubmit)="submit()">
-  <input
-    type="text"
-    placeholder="Name"
-    formControlName="name"
+<form
+  class="form"
+  [formGroup]="form"
+  (ngSubmit)="submit()"
+>
+
+  <!-- Name -->
+  <div class="form__field">
+    <label for="name" class="form__label">
+      Full name
+    </label>
+    <input
+      id="name"
+      type="text"
+      formControlName="name"
+      placeholder="John Doe"
+    />
+    @for (err of getFieldErrors('name'); track $index) {
+      <small class="form__error">{{ err }}</small>
+    }
+  </div>
+
+  <!-- Email -->
+  <div class="form__field">
+    <label for="email" class="form__label">
+      Email address
+    </label>
+    <input
+      id="email"
+      type="email"
+      formControlName="email"
+      placeholder="john@example.com"
+    />
+    @for (err of getFieldErrors('email'); track $index) {
+      <small class="form__error">{{ err }}</small>
+    }
+  </div>
+
+  <!-- City -->
+  <div class="form__field">
+    <label for="city" class="form__label">
+      City
+    </label>
+    <input
+      id="city"
+      type="text"
+      formControlName="city"
+      placeholder="Vienna"
+    />
+    @for (err of getFieldErrors('city'); track $index) {
+      <small class="form__error">{{ err }}</small>
+    }
+  </div>
+
+  <!-- Profession -->
+  <div class="form__field">
+    <label for="profession" class="form__label">
+      Profession
+    </label>
+    <input
+      id="profession"
+      type="text"
+      formControlName="profession"
+      placeholder="Frontend Developer"
+    />
+    @for (err of getFieldErrors('profession'); track $index) {
+      <small class="form__error">{{ err }}</small>
+    }
+  </div>
+
+  <!-- Age -->
+  <div class="form__field">
+    <label for="age" class="form__label">
+      Age
+    </label>
+    <input
+      id="age"
+      type="number"
+      formControlName="age"
+      placeholder="30"
+    />
+    @for (err of getFieldErrors('age'); track $index) {
+      <small class="form__error">{{ err }}</small>
+    }
+  </div>
+
+  <!-- Experience -->
+  <div class="form__field">
+    <label for="experienceYears" class="form__label">
+      Years of experience
+    </label>
+    <input
+      id="experienceYears"
+      type="number"
+      formControlName="experienceYears"
+      placeholder="5"
+    />
+    @for (err of getFieldErrors('experienceYears'); track $index) {
+      <small class="form__error">{{ err }}</small>
+    }
+  </div>
+
+  <!-- Status -->
+  <div class="form__field">
+    <label for="status" class="form__label">
+      Status
+    </label>
+    <select id="status" formControlName="status">
+      <option value="">Select status</option>
+      <option value="ACTIVE">Active</option>
+      <option value="INACTIVE">Inactive</option>
+      <option value="SUSPENDED">Suspended</option>
+    </select>
+    @for (err of getFieldErrors('status'); track $index) {
+      <small class="form__error">{{ err }}</small>
+    }
+  </div>
+
+  <!-- Avatar -->
+  <div class="form__field">
+    <label for="avatar" class="form__label">
+      Avatar image
+    </label>
+    <input
+      id="avatar"
+      type="file"
+      accept="image/*"
+      (change)="onFileSelected($event)"
+    />
+
+    @if (previewUrl) {
+      <img
+        [src]="previewUrl"
+        alt="Avatar preview"
+        class="avatar-preview"
+      />
+    }
+
+    @for (err of getFieldErrors('avatarUrl'); track $index) {
+      <small class="form__error">{{ err }}</small>
+    }
+  </div>
+
+  <!-- Submit -->
+  <button
+    type="submit"
+    class="button button--primary form__submit"
   >
-  @for (err of getFieldErrors('name'); track $index){
-    <small>{{err}}</small>
-  }
+    Add user
+  </button>
 
-  <input
-    type="email"
-    placeholder="Email"
-    formControlName="email"
-  >
-  @for (err of getFieldErrors('email'); track $index){
-    <small>{{err}}</small>
-  }
-
-  <input
-    type="text"
-    placeholder="City"
-    formControlName="city"
-  >
-  @for (err of getFieldErrors('city'); track $index){
-    <small>{{err}}</small>
-  }
-
-  <input
-    type="text"
-    placeholder="Profession"
-    formControlName="profession"
-  >
-  @for (err of getFieldErrors('profession'); track $index){
-    <small>{{err}}</small>
-  }
-
-  <input
-    type="number"
-    placeholder="Age"
-    formControlName="age"
-  >
-  @for (err of getFieldErrors('age'); track $index){
-    <small>{{err}}</small>
-  }
-
-  <input
-    type="number"
-    placeholder="Experience Years"
-    formControlName="experienceYears"
-  >
-  @for (err of getFieldErrors('experienceYears'); track $index){
-    <small>{{err}}</small>
-  }
-
-  <select formControlName="status">
-    <option value="">Select Status</option>
-    <option value="ACTIVE">Active</option>
-    <option value="INACTIVE">Inactive</option>
-    <option value="SUSPENDED">Suspended</option>
-  </select>
-  @for(err of getFieldErrors('status'); track $index){
-    <small class="error">{{err}}</small>
-  }
-
-  <label>Avatar Url</label>
-  <input
-    type="file"
-    accept="image/*"
-    (change)="onFileSelected($event)"
-  >
- @if(previewUrl){
-   <img [src]="previewUrl" alt="Avatar preview" class="avatar-preview" width="500">
- }
-
-  @for (err of getFieldErrors('avatarUrl'); track $index) {
-    <small class="error">{{ err }}</small>
-  }
-
-  <button type="submit">Add user</button>
 </form>
