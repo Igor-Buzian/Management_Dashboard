@@ -1,67 +1,63 @@
-import {Component, ViewChild} from '@angular/core';
-import {BehaviorSubject, switchMap} from 'rxjs';
-import {UserService} from '../../services/user-service/user.service';
-import {CreateUserDto} from '../../interfaces/dto/create-user.dto';
-import {UserForm} from '../user-form/user-form';
-import {UsersList} from '../users-list/users-list';
+import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {User} from '../../interfaces/models/User';
-import {UserFormModalComponent} from '../user-form-modal.component/user-form-modal.component';
 
+import {UsersList} from '../users-list/users-list';
+import {SidebarComponent} from '../sidebar/sidebar.component';
+import {UsersFacade} from '../../services/facade/users.facade';
+import {SidebarAction} from '../sidebar/sidebar.model';
+import {User} from '../../interfaces/models/User';
+import {UsersSidebarHandler} from '../../../shared/handler/users-sidebar.handler';
+import {UserFormModalComponent} from '../user-form-modal.component/user-form-modal.component';
 
 @Component({
   selector: 'app-users-page',
   standalone: true,
   imports: [
-    UserForm,
+    CommonModule,
     UsersList,
+    SidebarComponent,
     UserFormModalComponent,
-    CommonModule
   ],
   templateUrl: './users-page.html',
   styleUrls: ['./users-page.scss'],
 })
-export class UsersPage {
-  private refresh$ = new BehaviorSubject<void>(undefined);
-  users$ = this.refresh$.pipe(switchMap(() => this.userService.getUsers()));
-  @ViewChild('formModal') formModal?: UserFormModalComponent;
-  @ViewChild('form') form?: UserForm;
+export class UsersPage implements OnInit {
+
   selectedUser: User | null = null;
 
-  constructor(private userService: UserService) {
+  constructor(
+    public facade: UsersFacade,
+    private sidebarHandler: UsersSidebarHandler
+  ) {
   }
 
-  addUser(dto: CreateUserDto) {
-    this.userService.addUser(dto).subscribe({
-      next: () =>{
-          this.refresh$.next();
-      },
-      error: (err) =>{
-        this.form?.handleServerError(err.error);
-      }
-    });
+
+  ngOnInit() {
+    this.facade.loadUsers();
   }
 
-  deleteUser(id: number) {
-    this.userService.deleteUser(id).subscribe(() => {
-      this.refresh$.next();
-    });
+  get users() {
+    return this.facade.users$;
   }
 
-  openEditModal(user: User) {
+  onSidebarAction(action: SidebarAction) {
+    this.sidebarHandler.handle(action);
+  }
+
+
+  openEdit(user: User) {
     this.selectedUser = user;
   }
 
-  updateUser(user: User) {
-    this.userService.updateUser(user.id, user).subscribe({
-        next: () => {
-          this.selectedUser = null;
-          this.refresh$.next();
-        },
-        error: (error) => {
-            this.formModal?.handleServerError(error.error);
-        }
-      }
-    )
+  closeModal() {
+    this.selectedUser = null;
+  }
+
+  save(user: User) {
+    this.facade.update(user).subscribe(() => this.closeModal());
+  }
+
+  delete(id: number) {
+    this.facade.delete(id).subscribe();
   }
 }

@@ -1,0 +1,95 @@
+@use './variables' as v;
+
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  height: 56px;
+  border-bottom: 1px solid v.$color-border;
+  background: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 v.$spacing-lg;
+
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: v.$spacing-lg;
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: v.$spacing-sm;
+  }
+}
+
+.logo {
+  font-weight: 600;
+  font-size: v.$font-lg;
+  color: v.$color-text;
+}
+
+.app-nav {
+  display: flex;
+  gap: v.$spacing-md;
+
+  &__link {
+    font-size: v.$font-md;
+    color: #4b5563;
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: v.$radius-sm;
+
+    &:hover {
+      background: v.$color-bg;
+      color: v.$color-text;
+    }
+  }
+}
+
+.app-main {
+  flex: 1;
+  padding: v.$spacing-lg;
+  background: v.$color-bg;
+
+  display: flex;
+  justify-content: center;
+}
+
+.app-footer {
+  height: 44px;
+  border-top: 1px solid v.$color-border;
+  background: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: v.$font-sm;
+  color: #6b7280;
+}
+/* Desktop default */
+.app-nav {
+  display: flex;
+}
+
+.burger {
+  display: none;
+}
+
+/* Tablet + Mobile */
+@media (max-width: 1024px) {
+  .app-nav {
+    display: none;   /* ✅ Users / Create User исчезают */
+  }
+
+  .burger {
+    display: block;  /* ✅ бургер появляется */
+  }
+}

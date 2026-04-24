@@ -2,6 +2,7 @@
 @use './mixins';
 
 .form {
+  font-size: 1.1em;
   display: flex;
   flex-direction: column;
   gap: v.$spacing-md;
@@ -13,16 +14,18 @@
   }
 
   label {
-    font-size: v.$font-sm;
+    font-size: 0.85em;
     font-weight: 500;
   }
 
   input,
   select {
     @include mixins.input-base;
+    font-size: 1em;
   }
 
   small {
     @include mixins.error-text;
+    font-size: 0.8em;
   }
 }

@@ -9,7 +9,9 @@
   padding: v.$spacing-lg;
   background: white;
   border-radius: v.$radius-md;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03),
+  0 12px 24px rgba(0, 0, 0, 0.06);
+  font-size: 1.05rem;
 }
 
 /* form tweaks */
@@ -57,15 +59,23 @@
   border: 1px solid v.$color-border;
 }
 
-/* file input */
 input[type='file'] {
   padding: 0;
   border: none;
   box-sizing: border-box;
 }
 
-/* better focus feel */
 input:focus,
 select:focus {
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25);
+}
+
+.page {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }

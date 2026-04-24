@@ -18,12 +18,12 @@ public class UserController {
         this.service = service;
     }
 
-    @GetMapping()
+    @GetMapping
     public List<UserDto> getUsers() {
         return service.getAll();
     }
 
-    @PostMapping()
+    @PostMapping
     public User addUser(@RequestBody CreateUserDto user) {
        return service.addUser(user);
     }

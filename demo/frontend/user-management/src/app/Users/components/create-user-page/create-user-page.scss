@@ -1,0 +1,21 @@
+h2 {
+  font-size: 24px;
+  margin-bottom: 24px;
+  align-self: center;
+}
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100vh;
+}
+.page {
+  min-height: 100vh;
+  padding-left: 260px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 48px;
+}

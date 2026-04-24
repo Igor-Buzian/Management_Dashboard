@@ -1,0 +1,32 @@
+<button class="burger" (click)="toggle()">☰</button>
+
+@if (isOpen()) {
+  <div class="overlay" (click)="close()"></div>
+}
+
+<aside class="sidebar" [class.open]="isOpen()">
+  <div class="sidebar__header">
+    <h3>Menu</h3>
+    <button
+      class="sidebar__close"
+      (click)="close()"
+      aria-label="Close menu">
+    </button>
+  </div>
+
+  <div class="sidebar__section">
+    <p class="section-title">Users</p>
+
+    @for (item of items; track item.action) {
+      <button
+        type="button"
+        class="sidebar-item"
+        (click)="onAction(item.action)">
+
+        <span class="icon">{{ item.icon }}</span>
+        <span class="label">{{ item.label }}</span>
+
+      </button>
+    }
+  </div>
+</aside>

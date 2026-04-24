@@ -1,17 +1,20 @@
-import {FormGroup} from '@angular/forms';
-import { VALIDATION_MESSAGES } from "../../../shared/validation/users.validation";
-import {getValidationMessages} from '../../../shared/validation/validation.helper';
-import {handleFormServerError, ServerError} from '../../../shared/error/handle-server-error';
+import { FormControl, FormGroup, AbstractControl } from '@angular/forms';
+import { getValidationMessages } from '../../../shared/validation/validation.helper';
+import { VALIDATION_MESSAGES } from '../../../shared/validation/users.validation';
 
+export abstract class BaseFormComponent<
+  TForm extends Record<keyof typeof VALIDATION_MESSAGES, unknown>
+> {
+  abstract form: FormGroup<{
+    [K in keyof TForm]: FormControl<TForm[K]>;
+  }>;
 
-export abstract class BaseFormComponent {
-  abstract form: FormGroup;
+  getFieldErrors<K extends keyof typeof VALIDATION_MESSAGES>(
+    field: K
+  ): string[] {
+    const control: AbstractControl | null =
+      this.form.get(field as string);
 
-  getFieldErrors(field: keyof typeof VALIDATION_MESSAGES): string[] {
-    return getValidationMessages(this.form.get(field), field);
-  }
-
-  handleServerError(err: ServerError | ServerError[]) {
-    handleFormServerError(this.form.controls, err);
+    return getValidationMessages(control, field);
   }
 }

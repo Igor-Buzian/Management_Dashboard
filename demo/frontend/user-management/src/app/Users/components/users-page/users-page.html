@@ -1,19 +1,16 @@
-<h2>Users</h2>
-
-<app-user-form
-  (submitUser)="addUser($event)">
-</app-user-form>
+<app-sidebar (action)="onSidebarAction($event)"></app-sidebar>
 
 <app-users-list
-  [users]="users$ | async"
-  (edit)="openEditModal($event)"
-  (delete)="deleteUser($event)">
+  [users]="users()"
+  (edit)="openEdit($event)"
+  (delete)="delete($event)">
 </app-users-list>
+
 
 @if (selectedUser) {
   <app-user-form-modal
     [user]="selectedUser"
-    (save)="updateUser($event)"
-    (cancel)="selectedUser = null">
+    (save)="save($event)"
+    (cancel)="closeModal()">
   </app-user-form-modal>
 }

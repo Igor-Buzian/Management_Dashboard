@@ -1,0 +1,188 @@
+@use '../../styles/variables' as v;
+
+/* ---------------------------------
+   BURGER (mobile only)
+---------------------------------- */
+
+.burger {
+  position: fixed;
+  top: v.$spacing-md;
+  left: v.$spacing-md;
+  z-index: 1100;
+
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  display: none; // ❗ desktop: скрыт
+}
+
+/* ---------------------------------
+   OVERLAY
+---------------------------------- */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+/* ---------------------------------
+   SIDEBAR
+---------------------------------- */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 280px;
+  height: 100%;
+  padding: v.$spacing-md;
+
+  background: white;
+  z-index: 1200;
+
+  transform: translateX(-100%);
+  transition: transform 0.25s ease;
+
+  &.open {
+    transform: translateX(0);
+  }
+
+  /* header */
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: v.$spacing-lg;
+  }
+
+  /* section */
+  &__section {
+    margin-bottom: v.$spacing-lg;
+  }
+
+  .section-title {
+    font-size: v.$font-sm;
+    text-transform: uppercase;
+    color: #6b7280;
+    margin-bottom: v.$spacing-sm;
+  }
+
+  /* item */
+  &__item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: v.$spacing-sm;
+
+    padding: 10px 12px;
+    border-radius: v.$radius-sm;
+    cursor: pointer;
+    color: v.$color-text;
+
+    &:hover {
+      background: v.$color-bg;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+
+      width: 3px;
+      height: 0;
+      background: v.$color-primary;
+      border-radius: 2px;
+
+      transform: translateY(-50%);
+      transition: height 0.15s ease;
+    }
+
+    &:hover::before {
+      height: 60%;
+    }
+  }
+}
+
+/* ---------------------------------
+   CLOSE BUTTON
+---------------------------------- */
+
+.sidebar__close {
+  position: relative;
+  width: 32px;
+  height: 32px;
+
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+  border-radius: 6px;
+}
+
+.sidebar__close:hover {
+  background: v.$color-bg;
+}
+
+.sidebar__close::before,
+.sidebar__close::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  width: 16px;
+  height: 2px;
+  background-color: v.$color-text;
+
+  transform-origin: center;
+}
+
+.sidebar__close::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.sidebar__close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* hover accent */
+.sidebar__close:hover::before,
+.sidebar__close:hover::after {
+  background-color: v.$color-primary;
+}
+
+/* focus (accessibility) */
+.sidebar__close:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+}
+
+/* ---------------------------------
+   RESPONSIVE BREAKPOINT
+---------------------------------- */
+
+/* Tablet + Mobile */
+@media (max-width: 1024px) {
+  .burger {
+    display: block;
+  }
+}
+
+.overlay {
+  pointer-events: auto;
+}
+
+.sidebar {
+  box-sizing: border-box;
+}
+
+.sidebar__item {
+  text-decoration: none;
+}

@@ -1,0 +1,91 @@
+@use './Users/styles/variables' as v;
+
+/* Layout */
+
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: v.$color-bg;
+}
+
+/* Header */
+
+.app-header {
+  height: 56px;
+  background: white;
+  border-bottom: 1px solid v.$color-border;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 v.$spacing-lg;
+}
+
+.app-header__left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* Logo */
+
+.logo {
+  font-size: 20px;
+  font-weight: 700;
+  color: v.$color-text;
+  text-decoration: none;
+}
+
+/* Navigation (DESKTOP) */
+
+.app-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.app-nav__link {
+  font-size: 16px;
+  font-weight: 500;
+  color: #4b5563;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.app-nav__link:hover {
+  color: v.$color-primary;
+}
+
+/* Main */
+
+.app-main {
+  flex: 1;
+  padding: v.$spacing-lg;
+  display: flex;
+  justify-content: center;
+}
+
+/* Footer */
+
+.app-footer {
+  height: 44px;
+  border-top: 1px solid v.$color-border;
+  background: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: v.$font-sm;
+  color: #6b7280;
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width: 1024px) {
+  .app-nav {
+    display: none; /* ✅ Users / Create User скрываются */
+  }
+}

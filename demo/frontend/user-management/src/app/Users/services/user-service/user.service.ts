@@ -1,32 +1,40 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {User} from '../../interfaces/models/User';
-import {CreateUserDto} from '../../interfaces/dto/create-user.dto';
-import {UpdateUserDto} from '../../interfaces/dto/update-user.dto';
-import {API} from '../../../shared/api/api-routes';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
-@Injectable({
-  providedIn: 'root',
-})
+import { User } from '../../interfaces/models/User';
+import { CreateUserDto } from '../../interfaces/dto/create-user.dto';
+import { UpdateUserDto } from '../../interfaces/dto/update-user.dto';
+import {API} from '../../../shared/routes/api.urls';
+
+@Injectable({ providedIn: 'root' })
 export class UserService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) {}
+
+  getUsers(filters: Record<string, any>) {
+    return this.http.get<User[]>(
+      API.USERS.GET_ALL(),
+      { params: filters }
+    );
   }
 
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(API.USERS.GET_ALL());
+  create(dto: CreateUserDto) {
+    return this.http.post<User>(
+      API.USERS.CREATE(),
+      dto
+    );
   }
 
-  addUser(dto: CreateUserDto): Observable<User> {
-    return this.http.post<User>(API.USERS.CREATE(), dto);
+  update(id: number, dto: UpdateUserDto) {
+    return this.http.put<User>(
+      API.USERS.UPDATE(id),
+      dto
+    );
   }
 
-  updateUser(id: number, dto: UpdateUserDto): Observable<User> {
-    return this.http.put<User>(API.USERS.UPDATE(id), dto);
-  }
-
-  deleteUser(id: number): Observable<void> {
-    return this.http.delete<void>(API.USERS.DELETE(id));
+  delete(id: number) {
+    return this.http.delete<void>(
+      API.USERS.DELETE(id)
+    );
   }
 }

@@ -4,9 +4,11 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {createUserForm} from '../../../shared/form/user.form';
 import {BaseFormComponent} from '../base-form/base-form.component';
-import {required} from '@angular/forms/signals';
+
 import {UserStatus} from '../../interfaces/dto/user-status';
 import {readImageFile} from '../../../shared/form/user.file.selected';
+import {UserFormModel} from '../user-form/user-form-model';
+import {VALIDATION_MESSAGES} from '../../../shared/validation/users.validation';
 
 @Component({
   selector: 'app-user-form-modal',
@@ -15,7 +17,8 @@ import {readImageFile} from '../../../shared/form/user.file.selected';
   templateUrl: './user-form-modal.component.html',
   styleUrls: ['./user-form-modal.component.scss'],
 })
-export class UserFormModalComponent extends BaseFormComponent implements OnInit {
+export class UserFormModalComponent  extends BaseFormComponent<UserFormModel> implements OnInit {
+
   private _user!: User;
   previewUrl: string | null = null;
   form = createUserForm();
