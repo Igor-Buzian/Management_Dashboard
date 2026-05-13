@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -23,6 +23,8 @@ export class UserForm extends BaseFormComponent<UserFormModel> {
   form = createUserForm();
   previewUrl: string | null = null;
 
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+
   submit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
@@ -30,8 +32,20 @@ export class UserForm extends BaseFormComponent<UserFormModel> {
     }
 
     this.submitUser.emit(this.form.getRawValue());
-    this.form.reset();
+    this.form.reset({
+      name: '',
+      email: '',
+      city: '',
+      profession: '',
+      age: null,
+      experienceYears: null,
+      avatarUrl: '',
+      status: ''
+    });
     this.previewUrl = null;
+    setTimeout(() => {
+      this.fileInput?.nativeElement && (this.fileInput.nativeElement.value = '');
+    });
   }
 
   async onFileSelected(event: Event) {

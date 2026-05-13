@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {UsersStore} from '../user-service/users-store.service';
 import {UserService} from '../user-service/user.service';
 import {User} from '../../interfaces/models/User';
-import {tap} from 'rxjs';
+import {finalize, tap} from 'rxjs';
+import {UserSearchDto} from '../../interfaces/dto/user-search.dto';
 
 @Injectable({providedIn: 'root'})
 export class UsersFacade {
@@ -21,18 +22,19 @@ export class UsersFacade {
     return this.store.loading;
   }
 
-
   loadUsers() {
     this.store.setLoading(true);
 
-    this.api.getUsers(this.store.filters())
-      .subscribe({
-        next: (users) => {
-          this.store.setUsers(users);
-          this.store.setLoading(false);
-        },
-        error: () => this.store.setLoading(false)
-      });
+    const filters = this.store.filters() ?? {};
+
+    this.api.getUsers(filters).pipe(
+      finalize(() => this.store.setLoading(false))
+    ).subscribe(users => this.store.setUsers(users));
+  }
+
+  search(filters: UserSearchDto) {
+    this.store.setFilters(filters ?? {});
+    this.loadUsers();
   }
 
   update(user: User) {

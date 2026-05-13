@@ -1,12 +1,13 @@
 import {Injectable, signal} from '@angular/core';
 
 import {User} from '../../interfaces/models/User';
+import {UserSearchDto} from '../../interfaces/dto/user-search.dto';
 @Injectable({ providedIn: 'root' })
 export class UsersStore {
 
   private _users = signal<User[]>([]);
   private _loading = signal(false);
-  private _filters = signal<any>({});
+  private _filters = signal<UserSearchDto>({});
 
   users = this._users.asReadonly();
   loading = this._loading.asReadonly();
@@ -20,8 +21,8 @@ export class UsersStore {
     this._loading.set(value);
   }
 
-  setFilters(filters: any) {
-    this._filters.set(filters);
+  setFilters(filters: UserSearchDto) {
+    this._filters.set(filters ?? {});
   }
 
   updateUser(updated: User) {
@@ -34,9 +35,5 @@ export class UsersStore {
     this._users.update(list =>
       list.filter(u => u.id !== id)
     );
-  }
-
-  addUser(user: User) {
-    this._users.update(list => [user, ...list]);
   }
 }

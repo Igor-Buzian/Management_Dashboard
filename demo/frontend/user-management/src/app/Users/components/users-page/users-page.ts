@@ -8,6 +8,8 @@ import {SidebarAction} from '../sidebar/sidebar.model';
 import {User} from '../../interfaces/models/User';
 import {UsersSidebarHandler} from '../../../shared/handler/users-sidebar.handler';
 import {UserFormModalComponent} from '../user-form-modal.component/user-form-modal.component';
+import {UsersSearch} from '../users-search/users-search';
+import {UserSearchDto} from '../../interfaces/dto/user-search.dto';
 
 @Component({
   selector: 'app-users-page',
@@ -17,6 +19,7 @@ import {UserFormModalComponent} from '../user-form-modal.component/user-form-mod
     UsersList,
     SidebarComponent,
     UserFormModalComponent,
+    UsersSearch,
   ],
   templateUrl: './users-page.html',
   styleUrls: ['./users-page.scss'],
@@ -29,6 +32,10 @@ export class UsersPage implements OnInit {
     public facade: UsersFacade,
     private sidebarHandler: UsersSidebarHandler
   ) {
+  }
+
+  onSearch(filters: UserSearchDto) {
+    this.facade.search(filters);
   }
 
 

@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.CreateUserDto;
 import com.example.demo.dto.UpdateUserDto;
 import com.example.demo.dto.UserDto;
+import com.example.demo.dto.UserSearchDto;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +19,10 @@ public class UserController {
         this.service = service;
     }
 
-    @GetMapping
-    public List<UserDto> getUsers() {
-        return service.getAll();
-    }
+   @GetMapping
+   public List<UserDto> getUsers(UserSearchDto filters) {
+       return service.search(filters);
+   }
 
     @PostMapping
     public User addUser(@RequestBody CreateUserDto user) {

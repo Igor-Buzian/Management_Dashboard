@@ -83,9 +83,8 @@
     <div class="form__field">
       <label for="avatar" class="form__label">Avatar</label>
       <input
-        id="avatar"
         type="file"
-        accept="image/*"
+        #fileInput
         (change)="onFileSelected($event)"
       />
 

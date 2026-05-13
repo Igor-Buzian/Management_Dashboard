@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {User} from '../../interfaces/models/User';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
@@ -22,11 +22,26 @@ export class UserFormModalComponent  extends BaseFormComponent<UserFormModel> im
   private _user!: User;
   previewUrl: string | null = null;
   form = createUserForm();
+
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+
   @Input({required:true})
   set user(value:User){
     this._user = value;
     if (!this.form) return;
-    this.form.reset();
+    this.form.reset({
+      name: '',
+      email: '',
+      city: '',
+      profession: '',
+      age: null,
+      experienceYears: null,
+      avatarUrl: '',
+      status: ''
+    });
+    if (this.fileInput) {
+      this.fileInput.nativeElement.value = '';
+    }
     this.form.patchValue(
       {
         name: value.name,

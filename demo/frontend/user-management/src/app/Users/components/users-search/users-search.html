@@ -1,0 +1,36 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="search-form">
+
+  <div class="search-bar">
+    <input
+      type="search"
+      placeholder="🔍 Search by name..."
+      formControlName="query"
+    />
+  </div>
+
+  <div class="filters">
+
+    <input placeholder="City" formControlName="city" />
+    <input placeholder="Profession" formControlName="profession" />
+
+    <select formControlName="status">
+      <option value="">Any status</option>
+      <option value="ACTIVE">Active</option>
+      <option value="INACTIVE">Inactive</option>
+      <option value="SUSPENDED">Suspended</option>
+    </select>
+
+    <input type="number" placeholder="Age from" formControlName="ageFrom" />
+    <input type="number" placeholder="Age to" formControlName="ageTo" />
+
+    <input type="number" placeholder="Exp from" formControlName="experienceFrom" />
+    <input type="number" placeholder="Exp to" formControlName="experienceTo" />
+
+  </div>
+
+  <div class="actions">
+    <button type="submit" class="primary">Search</button>
+    <button type="button" (click)="reset()" class="secondary">Reset</button>
+  </div>
+
+</form>
