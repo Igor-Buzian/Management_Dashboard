@@ -1,8 +1,9 @@
 # 📊 Management Dashboard
 
-User management dashboard with dynamic filtering and state management built with Angular + Spring Boot.
+User management dashboard built with Angular and Spring Boot.
 
-Supports dynamic filtering, state management with signals, and a clean separation between UI, state, and API.
+Focuses on dynamic filtering, centralized state management,
+and clear separation between UI, state, and API layers.
 
 ---
 
@@ -24,10 +25,11 @@ Components → Facade → Store → API Service
 - Facade coordinates actions and API calls
 - Store holds reactive state (signals)
 - API services handle HTTP
+- no direct API calls inside components
 
-  ```md
+  ````md
   UI → Facade → API → Store → UI update
-  ```
+  ````
   
 ---
 
@@ -65,13 +67,13 @@ Behavior:
 - all filters are optional  
 - empty values are excluded from request  
 - filters are combined with AND logic  
-- backend builds query dynamically  
+- backend uses JPA Specifications for dynamic filtering
 
 Example:
 
-```md
+````md
 GET /api/users?city=Berlin&ageFrom=25
-```
+````
 
 ------
 
@@ -141,7 +143,7 @@ Data includes:
 - different professions
 - various experience levels  
 
-### Used to demonstrate filtering behavior.
+Used to demonstrate filtering behavior.
 
 ---
 
@@ -159,8 +161,11 @@ mvn spring-boot:run
 ```
 ### Frontend
 ```bash
- cd  \frontend\user-management 
- npx ng serve 
+ cd frontend/user-management
+npm install
+ng serve
 ```
 ## Open:
-`` http://localhost:4200 ``
+``` 
+http://localhost:4200
+```
