@@ -86,10 +86,10 @@
 /* Tablet + Mobile */
 @media (max-width: 1024px) {
   .app-nav {
-    display: none;   /* ✅ Users / Create User исчезают */
+    display: none;
   }
 
   .burger {
-    display: block;  /* ✅ бургер появляется */
+    display: block;
   }
 }
