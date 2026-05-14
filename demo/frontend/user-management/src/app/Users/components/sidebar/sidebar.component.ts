@@ -21,7 +21,6 @@ import {RouterModule} from '@angular/router';
 export class SidebarComponent {
 
   isOpen = signal(false);
-  showFilters = signal(false);
 
   items = SIDEBAR_ITEMS;
 

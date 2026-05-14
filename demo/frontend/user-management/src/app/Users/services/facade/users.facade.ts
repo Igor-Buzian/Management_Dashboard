@@ -18,10 +18,6 @@ export class UsersFacade {
     return this.store.users;
   }
 
-  get loading$() {
-    return this.store.loading;
-  }
-
   loadUsers() {
     this.store.setLoading(true);
 

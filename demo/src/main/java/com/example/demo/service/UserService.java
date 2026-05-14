@@ -79,25 +79,6 @@ public class UserService {
         }
     }
 
-   /* public static Specification<User> equalIgnoreCase(String field, String value) {
-        return (root, query, cb) -> {
-
-            try {
-                if (value == null || value.isBlank()) {
-                    return cb.conjunction();
-                }
-
-                return cb.equal(
-                        cb.lower(root.get(field).as(String.class)),
-                        value.toLowerCase()
-                );
-            } catch (Exception e) {
-                System.out.println("ERROR FIELD: " + field);
-                throw e;
-            }
-        };
-    }*/
-
     private UserDto toDto(User user) {
         UserDto dto = new UserDto();
 
